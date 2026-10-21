@@ -57,6 +57,22 @@ await check('theme toggle switches to dark and persists', async () => {
   assert.equal(await page.evaluate(() => document.documentElement.classList.contains('dark')), false)
 })
 
+await check('current focus panel summarizes the real work in progress', async () => {
+  const panel = page.locator('[role="region"][aria-label="Current focus"]')
+  assert.equal(await panel.count(), 1)
+  const text = await panel.innerText()
+  for (const label of ['Building', 'Learning', 'Testing', 'Open to']) {
+    assert.match(text, new RegExp(label, 'i'))
+  }
+  assert.match(text, /PulseOps/)
+  assert.match(text, /Playwright/)
+  assert.match(text, /Currently building PulseOps/)
+})
+
+await check('no fabricated GitHub contribution heatmap is rendered', async () => {
+  assert.equal(await page.locator('.contribution-cell, #activity').count(), 0)
+})
+
 await page.locator('header nav a', { hasText: 'Projects' }).click()
 await page.waitForTimeout(1400)
 await check('header nav scrolls to the projects section', async () => {
@@ -186,6 +202,16 @@ await check('reduced motion leaves all sections visible', async () => {
     ),
   )
   assert.ok(opacities.every((value) => value === 1), JSON.stringify(opacities))
+})
+await check('reduced motion switches the theme instantly', async () => {
+  await reducedPage.locator('header button[aria-pressed]').click()
+  await reducedPage.waitForTimeout(60)
+  const state = await reducedPage.evaluate(() => ({
+    dark: document.documentElement.classList.contains('dark'),
+    overlay: document.querySelectorAll('.theme-reveal').length,
+  }))
+  assert.equal(state.dark, true, 'the theme did not change')
+  assert.equal(state.overlay, 0, 'a reveal overlay was added')
 })
 await reducedContext.close()
 

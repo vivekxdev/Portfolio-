@@ -580,6 +580,8 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    border-radius: 4px;
+    padding: 5px;
     color: var(--subtle);
     font-size: 12px;
     letter-spacing: 0.03em;

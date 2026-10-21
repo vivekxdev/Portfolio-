@@ -59,7 +59,7 @@ export const hero = {
   contactLabel: 'Get in touch',
   focus: [
     { label: 'Building', value: 'PulseOps' },
-    { label: 'Learning', value: 'Secure APIs' },
+    { label: 'Learning', value: 'REST API design' },
     { label: 'Testing', value: 'Playwright' },
     { label: 'Open to', value: 'Full-stack roles' },
   ],
