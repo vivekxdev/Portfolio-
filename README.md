@@ -69,7 +69,9 @@ All content lives in `src/data/`:
 The following values are documented placeholders, not real details:
 
 - **Email:** `vivek@example.com` in `src/data/site.js`.
-- **GitHub / LinkedIn:** placeholder profile URLs in `src/data/site.js`.
+- **GitHub / LinkedIn:** left empty in `src/data/site.js` until real profiles are
+  added. The UI renders them as disabled “not added yet” actions rather than
+  linking to placeholder profiles.
 - **Profile image:** the hero uses a neutral `VK` monogram in `Hero.jsx`.
 - **Resume:** `public/Vivek-Kumar-Resume.pdf` is a generated placeholder. Replace
   it with a real PDF (same filename, or update `site.resumeUrl` and

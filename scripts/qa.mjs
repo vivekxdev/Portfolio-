@@ -73,6 +73,10 @@ await check('no fabricated GitHub contribution heatmap is rendered', async () =>
   assert.equal(await page.locator('.contribution-cell, #activity').count(), 0)
 })
 
+await check('placeholder social profiles are disabled, not active links', async () => {
+  assert.equal(await page.locator('a[href*="github.com"], a[href*="linkedin.com"]').count(), 0)
+})
+
 await page.locator('header nav a', { hasText: 'Projects' }).click()
 await page.waitForTimeout(1400)
 await check('header nav scrolls to the projects section', async () => {

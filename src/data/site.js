@@ -20,8 +20,8 @@ export const site = {
 
   // TODO: replace these with your real details.
   email: 'vivek@example.com',
-  githubUrl: 'https://github.com/vivek-kumar',
-  linkedinUrl: 'https://www.linkedin.com/in/vivek-kumar',
+  githubUrl: '',
+  linkedinUrl: '',
   resumeUrl: '/Vivek-Kumar-Resume.pdf',
   resumeFileName: 'Vivek-Kumar-Resume.pdf',
 
