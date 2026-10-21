@@ -66,7 +66,7 @@ await check('current focus panel summarizes the real work in progress', async ()
   }
   assert.match(text, /PulseOps/)
   assert.match(text, /Playwright/)
-  assert.match(text, /Currently building PulseOps/)
+  assert.match(await page.locator('main').innerText(), /Currently building PulseOps/)
 })
 
 await check('no fabricated GitHub contribution heatmap is rendered', async () => {
