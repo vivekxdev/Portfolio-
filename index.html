@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="index, follow" />
+
+    <title>Vivek Kumar — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Vivek Kumar is a full-stack developer building reliable web applications with React, Python, Django, PostgreSQL, REST APIs and Playwright."
+    />
+    <meta name="author" content="Vivek Kumar" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vivek Kumar" />
+    <meta property="og:title" content="Vivek Kumar — Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full-stack developer building useful, reliable web applications with React, Python, Django, PostgreSQL, REST APIs and Playwright."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Vivek Kumar — Full-Stack Developer, with a monogram portrait on a light editorial background."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vivek Kumar — Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full-stack developer building useful, reliable web applications with React, Python, Django, PostgreSQL, REST APIs and Playwright."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="/fonts/hanken-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/instrument-serif-italic-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script>
+      // Apply the saved theme before first paint to avoid a light/dark flash.
+      ;(function () {
+        try {
+          var saved = localStorage.getItem('theme')
+          var dark = saved === 'dark'
+          document.documentElement.classList.toggle('dark', dark)
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', dark ? '#0a0a0a' : '#ffffff')
+        } catch (error) {
+          document.documentElement.classList.remove('dark')
+        }
+      })()
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Vivek Kumar",
+        "jobTitle": "Full-Stack Developer",
+        "knowsAbout": [
+          "React",
+          "JavaScript",
+          "Python",
+          "Django",
+          "PostgreSQL",
+          "REST APIs",
+          "Playwright"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
