@@ -84,6 +84,7 @@
   --avatar-bg: #e9edf3;
   --avatar-fg: #4f5561;
   --nav-height: 56px;
+  --theme-reveal-duration: 700ms;
 }
 
 .dark {
@@ -773,5 +774,110 @@
     .experience-row {
       padding-inline: 2px;
     }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Directional theme reveal
+   --------------------------------------------------------------------------
+   View Transitions give us a snapshot of the whole viewport. Only the incoming
+   theme is animated: dark → light wipes down from the top, light → dark wipes
+   up from the bottom. The overlay below is the fallback for browsers without
+   the View Transitions API.
+-------------------------------------------------------------------------- */
+
+html[data-theme-transition] body {
+  transition: none;
+}
+
+/* A translucent sticky header would let the outgoing snapshot tint the
+   incoming one at the wipe edge, so make it opaque for the snapshot only. */
+html[data-theme-transition] .site-header {
+  background: var(--background);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--theme-reveal-duration);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-reveal-down;
+}
+
+html[data-theme-transition='to-dark']::view-transition-new(root) {
+  animation-name: theme-reveal-up;
+}
+
+@keyframes theme-reveal-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes theme-reveal-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.theme-reveal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: var(--background);
+  animation-duration: var(--theme-reveal-duration);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.theme-reveal[data-direction='to-light'] {
+  animation-name: theme-cover-down;
+}
+
+.theme-reveal[data-direction='to-dark'] {
+  animation-name: theme-cover-up;
+}
+
+@keyframes theme-cover-down {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes theme-cover-up {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  .theme-reveal {
+    animation: none !important;
   }
 }

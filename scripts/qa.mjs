@@ -46,15 +46,47 @@ await check('theme starts as light', async () => {
 })
 
 await themeButton.click()
-await page.waitForTimeout(150)
+await page.waitForFunction(() => document.documentElement.classList.contains('dark'))
+await page.waitForTimeout(80)
+await check('dark theme reveals upward from the bottom', async () => {
+  assert.equal(
+    await page.evaluate(() => document.documentElement.dataset.themeTransition),
+    'to-dark',
+  )
+  const animation = await page.evaluate(() => {
+    const style = getComputedStyle(document.documentElement, '::view-transition-new(root)')
+    return { name: style.animationName, duration: style.animationDuration }
+  })
+  assert.equal(animation.name, 'theme-reveal-up')
+  assert.equal(animation.duration, '0.7s')
+})
+await page.waitForFunction(() => !document.documentElement.dataset.themeTransition)
 await check('theme toggle switches to dark and persists', async () => {
-  assert.equal(await page.evaluate(() => document.documentElement.classList.contains('dark')), true)
   assert.equal(await page.evaluate(() => localStorage.getItem('theme')), 'dark')
   await page.reload({ waitUntil: 'networkidle' })
   assert.equal(await page.evaluate(() => document.documentElement.classList.contains('dark')), true)
   assert.equal(await page.locator('header button[aria-pressed]').getAttribute('aria-pressed'), 'true')
-  await page.locator('header button[aria-pressed]').click()
-  assert.equal(await page.evaluate(() => document.documentElement.classList.contains('dark')), false)
+})
+
+await page.locator('header button[aria-pressed]').click()
+await page.waitForFunction(() => !document.documentElement.classList.contains('dark'))
+await page.waitForTimeout(80)
+await check('light theme reveals downward from the top', async () => {
+  assert.equal(
+    await page.evaluate(() => document.documentElement.dataset.themeTransition),
+    'to-light',
+  )
+  const animation = await page.evaluate(() => {
+    const style = getComputedStyle(document.documentElement, '::view-transition-new(root)')
+    return { name: style.animationName, duration: style.animationDuration }
+  })
+  assert.equal(animation.name, 'theme-reveal-down')
+  assert.equal(animation.duration, '0.7s')
+})
+await page.waitForFunction(() => !document.documentElement.dataset.themeTransition)
+await check('theme toggle returns to light and persists', async () => {
+  assert.equal(await page.evaluate(() => localStorage.getItem('theme')), 'light')
+  assert.equal(await page.locator('header button[aria-pressed]').getAttribute('aria-pressed'), 'false')
 })
 
 await check('current focus panel summarizes the real work in progress', async () => {
@@ -212,9 +244,11 @@ await check('reduced motion switches the theme instantly', async () => {
   await reducedPage.waitForTimeout(60)
   const state = await reducedPage.evaluate(() => ({
     dark: document.documentElement.classList.contains('dark'),
+    direction: document.documentElement.dataset.themeTransition ?? null,
     overlay: document.querySelectorAll('.theme-reveal').length,
   }))
   assert.equal(state.dark, true, 'the theme did not change')
+  assert.equal(state.direction, null, 'a reveal animation was started')
   assert.equal(state.overlay, 0, 'a reveal overlay was added')
 })
 await reducedContext.close()

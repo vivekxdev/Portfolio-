@@ -117,8 +117,12 @@ fallback rather than claiming the message was sent.
   before first paint to avoid a flash.
 - The header toggle persists the choice and updates `color-scheme` and
   `theme-color`.
-- `prefers-reduced-motion` disables reveal transforms and smooth scrolling;
-  smooth scrolling is also skipped when the user requests reduced motion.
+- Theme switches use a full-viewport directional wipe: dark → light reveals
+  light from the top downward; light → dark reveals dark from the bottom
+  upward. The View Transitions animation runs for 700ms, with a matching
+  overlay fallback for browsers that do not support the API.
+- `prefers-reduced-motion` switches themes instantly without a reveal and
+  disables reveal transforms and smooth scrolling.
 - Sections have skip-link support, visible focus rings, keyboard-operable
   accordions, labelled form fields and `aria-live` contact feedback.
 
@@ -144,11 +148,11 @@ overflow and key layout measurements.
 npm run test:ui
 ```
 
-Runs the interaction and accessibility checks: active navigation, theme
-persistence, routing, contact validation and mailto fallback, static assets,
-horizontal overflow at 320–1440px, reduced motion and console errors. The
-expectations intentionally mirror the current sample content, so update
-`scripts/qa.mjs` when names or routes change.
+Runs the interaction and accessibility checks: active navigation, the
+directional theme transition and persistence, routing, contact validation and
+mailto fallback, static assets, horizontal overflow at 320–1440px, reduced
+motion and console errors. The expectations intentionally mirror the current
+sample content, so update `scripts/qa.mjs` when names or routes change.
 
 For the built site, use two terminals:
 
