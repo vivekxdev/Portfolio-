@@ -34,6 +34,7 @@ for (const path of [
   '/og-image.png',
   '/apple-touch-icon.png',
   '/favicon.svg',
+  '/robots.txt',
   '/tech/vscode.svg',
 ]) {
   const response = await context.request.get(`${base}${path}`)

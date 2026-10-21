@@ -10,7 +10,7 @@ function MissingLink({ label, children }) {
       aria-disabled="true"
       aria-label={`${label} — link not added yet`}
       title={`${label} link not added yet — edit src/data/site.js`}
-      className="text-subtle opacity-40"
+      className="inline-flex p-0.5 text-subtle opacity-40"
     >
       {children}
     </span>
@@ -28,7 +28,7 @@ function SocialLink({ url, label, children }) {
       rel={isMail ? undefined : 'noopener noreferrer'}
       aria-label={isMail ? 'Email' : `${label} (opens in a new tab)`}
       title={label}
-      className="text-subtle transition-colors hover:text-title"
+      className="inline-flex p-0.5 text-subtle transition-colors hover:text-title"
     >
       {children}
     </a>

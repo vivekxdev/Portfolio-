@@ -5,9 +5,9 @@ A compact, light-first editorial portfolio rebuilt as a close adaptation of
 Lucide icons and React Router.
 
 The design deliberately keeps the reference's proportions: a 768px header rail,
-a 704px page column, a 56px sticky header, a 144px profile mark, a 768–704px
-project grid and a restrained type system. Dark mode is an intentional
-adaptation (the reference's dark mode could not be verified).
+a 704px page column, a 56px sticky header, a 144px profile mark and a restrained
+type system. Dark mode is an intentional adaptation (the reference's dark mode
+could not be verified).
 
 ## Stack
 
@@ -53,8 +53,9 @@ All content lives in `src/data/`:
 - `site.js` — name, role, email, GitHub, LinkedIn, resume URL, hero intro,
   current focus, nav and footer.
 - `projects.js` — project cards and full case studies. Empty `demoUrl` /
-  `repoUrl` values render as disabled actions. Do not mark a feature
-  `implemented` unless it actually is.
+  `repoUrl` values render as disabled actions. Feature states are `in-progress`
+  or `planned`; use `done` (shown as “Implemented”) only when a feature actually
+  works.
 - `experience.js` — experience/learning rows. Add real employers, titles,
   dates and locations when you have them.
 - `writing.js` — draft topics. Add `url` and `date` only after publishing.

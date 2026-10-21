@@ -151,6 +151,7 @@ for (const [label, path] of [
   ['OG image', '/og-image.png'],
   ['apple touch icon', '/apple-touch-icon.png'],
   ['favicon', '/favicon.svg'],
+  ['robots.txt', '/robots.txt'],
 ]) {
   await check(`static asset exists: ${label}`, async () => {
     const response = await context.request.get(`${base}${path}`)
